@@ -39,9 +39,9 @@ def colide(a, b):
 
     a.v = new_ax * dir_x + va_y
     b.v = new_bx * dir_x + vb_y
-    corr =  (a.r + b.r)/2 - dist(a.pos.x, a.pos.y, b.pos.x, b.pos.y)
-    a.pos -= dir_x * corr
-    b.pos += dir_x * corr 
+        
+    a.pos += 2 * a.v
+    b.pos += 2 * b.v  
     
 def detecta_colisao(a, b):
     stroke(255,255,0)
