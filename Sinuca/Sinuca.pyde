@@ -1,14 +1,13 @@
-import Bola
-import Bordas
-import Mesa
+from Bola import Bola
+from Bordas import Bordas
+from Mesa import Mesa
 
 def setup():
     size(800, 600)
     
     
 
-bolas = [
-         Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
+bolas = [Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
          Bola(PVector(600,386), 8.5, 1, (255,0,0)),      
          Bola(PVector(600,403), 8.5, 1, (255,0,0)),
          Bola(PVector(600,420), 8.5, 1, (255,0,0)),
@@ -80,6 +79,7 @@ def draw():
             else:
                 bolas.pop(i)
                 a = len(bolas)
+                i = 0
         else:
             bolas[i].desenha()
     
