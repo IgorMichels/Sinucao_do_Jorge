@@ -1,23 +1,30 @@
 class Bola:
-    def __init__(self,pos, raio, massa, cor):
+    def __init__(self, pos, raio, massa, cor):
         self.pos = pos
         self.r = raio
         self.m = massa
         self.v = PVector(0, 0)
         self.a = PVector(0, 0)
         self.cor = cor
+        self.para = False
 
-    def move(self, dt):       
-        self.v = self.v + self.a * dt
+    def move(self, dt):
+        if self.v.mag() < 0.004:
+            self.a = PVector(0, 0)
+            self.v = PVector(0, 0)
+        else:
+            v = self.v.copy()
+            self.a = PVector(v[0], v[1])
+            self.v = self.v - 0.0004 * self.a * dt        
+
         self.pos = self.pos + self.v * dt    
-       
+                
     def desenha(self):
         stroke(0)
         fill(self.cor[0], self.cor[1], self.cor[2])
         ellipse(self.pos.x, self.pos.y, 2*self.r, 2*self.r)
         
-    def verifica_colisao(self, a):
-        
+    def verifica_colisao(self, a):        
         if (self.pos.x - a.pos.x)**2 + (self.pos.y - a.pos.y)**2 < (self.r + a.r)**2:
             self.colide(a)
     
@@ -78,7 +85,7 @@ class Bola:
         vy = vy* (-1)
         self.pos.add(2*vy)
         self.v = vx + vy
-        
+
         
         
         
