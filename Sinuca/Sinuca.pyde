@@ -4,9 +4,8 @@ from Mesa import Mesa
 
 
 def setup():
-    size(800, 600, P2D)
-    
-    
+    size(800, 600)
+
 
 bolas = gera_bolas()
 mesa = Mesa()
@@ -21,9 +20,8 @@ for i in bordas:
 
 
 oldt = millis()
-
 def draw():
-    global oldt, a, wb
+    global oldt
     
     t = millis()
     dt = t-oldt
@@ -33,11 +31,11 @@ def draw():
     background(0)
     
     for i in range(len(bolas)):
-        for j in bordas:
-            bolas[i].verifica_colisao_parede(j)
-        for j in range(len(bolas)):
-            if i < j:
-                if bolas[i].v != PVector(0, 0) or bolas[j].v != PVector(0, 0):
+        if bolas[i].status() == "on":
+            for j in bordas:
+                bolas[i].verifica_colisao_parede(j)
+            for j in range(len(bolas)):
+                if i < j and bolas[j].status() == "on":
                     bolas[i].verifica_colisao(bolas[j])
     
     for i in bolas:
@@ -47,7 +45,7 @@ def draw():
 
     pops = []
     for i in range(len(bolas)):
-        if bolas[i].pos.x < 126 or bolas[i].pos.x > 674 or bolas[i].pos.y < 293 or bolas[i].pos.y > 547:
+        if bolas[i].status() == "off":
             if i == 0:
                 bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
             else:
@@ -55,7 +53,6 @@ def draw():
         bolas[i].desenha()
     for i in pops:
         bolas.pop(i)
-        
     
 
 def mouseDragged():

@@ -8,16 +8,23 @@ class Bola:
         self.a = PVector(0, 0)
         self.cor = cor
 
-    def move(self, dt):
-        if self.v.mag() < 0.004:
-            self.a = PVector(0, 0)
-            self.v = PVector(0, 0)
+    def status(self):
+        if self.pos[0] < 130 or self.pos[0] > 670 or self.pos[1] < 297 or self.pos[1] > 543:
+            return "off"
         else:
-            v = self.v.copy()
-            self.a = PVector(v[0], v[1])
-            self.v = self.v - 0.0004 * self.a * dt        
+            return "on"
 
-        self.pos = self.pos + self.v * dt    
+    def move(self, dt):
+        if self.status() == "on":
+            if self.v.mag() < 0.004:
+                self.a = PVector(0, 0)
+                self.v = PVector(0, 0)
+            else:
+                v = self.v.copy()
+                self.a = PVector(v[0], v[1])
+                self.v = self.v - 0.0004 * self.a * dt        
+    
+            self.pos = self.pos + self.v * dt    
                 
     def desenha(self):
         stroke(0)
@@ -87,20 +94,20 @@ class Bola:
 
 def gera_bolas():
         bolas = [Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
-         Bola(PVector(600,386), 8.5, 1, (255,0,0)),      
-         Bola(PVector(600,403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,384), 8.5, 1, (255,0,0)),      
+         Bola(PVector(600,402), 8.5, 1, (255,0,0)),
          Bola(PVector(600,420), 8.5, 1, (255,0,0)),
-         Bola(PVector(600,437), 8.5, 1, (255,0,0)),
-         Bola(PVector(600,454), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-17*2**(0.5),394.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-17*2**(0.5),411.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-17*2**(0.5),428.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-17*2**(0.5),445.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-34*2**(0.5),437), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-34*2**(0.5),420), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0))
+         Bola(PVector(600,438), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,456), 8.5, 1, (255,0,0)),
+         Bola(PVector(599-8.5*3**(0.5),392.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(599-8.5*3**(0.5),410.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(599-8.5*3**(0.5),429.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(599-8.5*3**(0.5),447.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(598-17*3**(0.5),402), 8.5, 1, (255,0,0)),
+         Bola(PVector(598-17*3**(0.5),420), 8.5, 1, (255,0,0)),
+         Bola(PVector(598-17*3**(0.5),438), 8.5, 1, (255,0,0)),
+         Bola(PVector(597-25.5*3**(0.5),429.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(597-25.5*3**(0.5),410.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(596-34*3**(0.5),420), 8.5, 1, (255,0,0))
          ]
         return bolas
