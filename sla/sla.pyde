@@ -41,9 +41,7 @@ class Bola:
     def colide(self, a):
         
         dir_x = a.pos - self.pos
-        print(dir_x, dir_x.mag())
         dir_x.normalize()
-        print(dir_x, dir_x.mag())
         va_x = dir_x * (self.v.dot(dir_x)) 
         va_y = self.v - va_x
     
@@ -214,8 +212,10 @@ for i in bordas:
 
 
 oldt = millis()
+a = 100
+wb = False
 def draw():
-    global oldt
+    global oldt, a, wb
     
     t = millis()
     dt = t-oldt
@@ -224,7 +224,6 @@ def draw():
     
     background(0)
     
-
     for i in range(len(bolas)):
         if bolas[i].v != PVector(0,0):
             for j in bordas:
@@ -237,11 +236,23 @@ def draw():
         i.move(dt)
   
     mesa.desenha()
+
+    if a == 100:
+        wb = True
+
     for i in range(len(bolas)):
         if bolas[i].pos[0] < 130 or bolas[i].pos[0] > 670 or bolas[i].pos[1] < 297 or bolas[i].pos[1] > 543:
             if i == 0:
                 bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
-                bolas[i].desenha()
+                if wb == True:
+                    bolas[i].desenha()
+                    wb = False
+                    a = 0
+                else:
+                    a += 1
+                    print(a)
+            else:
+                bolas.pop(i)
         else:
             bolas[i].desenha()
     
