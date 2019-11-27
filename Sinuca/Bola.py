@@ -1,4 +1,5 @@
 class Bola:
+
     def __init__(self, pos, raio, massa, cor):
         self.pos = pos
         self.r = raio
@@ -83,3 +84,23 @@ class Bola:
         vy = vy* (-1)
         self.pos.add(2*vy)
         self.v = vx + vy
+
+def gera_bolas():
+        bolas = [Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
+         Bola(PVector(600,386), 8.5, 1, (255,0,0)),      
+         Bola(PVector(600,403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,420), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,437), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,454), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),394.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),411.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),428.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),445.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),437), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),420), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0))
+         ]
+        return bolas
