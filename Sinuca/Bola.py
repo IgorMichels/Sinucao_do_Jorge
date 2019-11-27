@@ -1,5 +1,3 @@
-from Buraco import *
-
 class Bola:
     def __init__(self, pos, raio, massa, cor):
         self.pos = pos
@@ -9,26 +7,16 @@ class Bola:
         self.a = PVector(0, 0)
         self.cor = cor
 
-    buracos = gera_buracos()
-
-    def status(self):
-        status = "on"
-        for i in buracos:
-            if (self.pos[0] - i.posx)**2 + (self.pos[1] - i.posy)**2 < 100:
-                status = "off"
-        return status
 
     def move(self, dt):
-        if self.status() == "on":
-            if self.v.mag() < 0.004:
-                self.a = PVector(0, 0)
-                self.v = PVector(0, 0)
-            else:
-                v = self.v.copy()
-                self.a = PVector(v[0], v[1])
-                self.v = self.v - 0.0004 * self.a * dt        
-    
-            self.pos = self.pos + self.v * dt    
+        if self.v.x**2 + self.v.y**2 < 0.000016:
+            self.a = PVector(0, 0)
+            self.v = PVector(0, 0)
+        else:
+            self.a = PVector(self.v.x, self.v.y)
+            self.v = self.v - 0.0004 * self.a * dt        
+
+        self.pos = self.pos + self.v * dt    
                 
     def desenha(self):
         stroke(0)

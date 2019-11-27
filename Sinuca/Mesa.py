@@ -1,5 +1,3 @@
-from Buraco import *
-
 class Mesa:
     def __init__(self):
         pass
@@ -24,9 +22,14 @@ class Mesa:
         rect(117, 287, 566, 266)
         
         # buraco
-        buracos = gera_buraco()
-        for i in buracos:
-            i.desenha()
+        fill(112, 86, 69)
+        ellipse(400, 287, 20, 20)
+        ellipse(400, 553, 20, 20)
+        ellipse(120, 290, 20, 20)
+        ellipse(120, 550, 20, 20)
+        ellipse(680, 290, 20, 20)
+        ellipse(680, 550, 20, 20)
+                
                 
         # estopa verde
         fill(2, 115, 62)
