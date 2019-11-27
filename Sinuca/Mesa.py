@@ -4,6 +4,7 @@ class Mesa:
         
     def desenha(self):
         # borda de madeira
+        stroke(0)
         fill(89, 47, 37)
         rect(100, 270, 600, 300)
         

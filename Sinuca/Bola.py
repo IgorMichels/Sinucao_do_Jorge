@@ -20,6 +20,17 @@ class Bola:
         
         if (self.pos.x - a.pos.x)**2 + (self.pos.y - a.pos.y)**2 < (self.r + a.r)**2:
             colide(a)
+    
+    def verifica_colisao_parede(self, p):
+
+        pa = p[0] - p[1]
+        v1 = pa.dot(self.pos - p[1])
+        v2 = pa.dot(self.pos - p[0])
+        
+        if v1 > 0 and v2 < 0:
+            a_ = (self.pos-p[1]) - (v1/(v1-v2))*pa
+            if a_.x**2 + a_.y**2 <= self.r**2:
+                self.colide_parede(a_)
         
     def colide(self, a):
         
@@ -48,6 +59,16 @@ class Bola:
             
         self.pos += 2 * a.v
         a.pos += 2 * b.v  
+        
+    def colide_parede(self, n):
+        n.normalize()
+        vy = n*(self.v.dot(n))
+        vx = self.v - vy
+    
+        
+        vy = vy* (-1)
+        self.pos.add(2*vy)
+        self.v = vx + vy
         
         
         
