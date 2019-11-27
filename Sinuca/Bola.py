@@ -1,5 +1,6 @@
-class Bola:
+from Buraco import *
 
+class Bola:
     def __init__(self, pos, raio, massa, cor):
         self.pos = pos
         self.r = raio
@@ -8,11 +9,14 @@ class Bola:
         self.a = PVector(0, 0)
         self.cor = cor
 
+    buracos = gera_buracos()
+
     def status(self):
-        if self.pos[0] < 130 or self.pos[0] > 670 or self.pos[1] < 297 or self.pos[1] > 543:
-            return "off"
-        else:
-            return "on"
+        status = "on"
+        for i in buracos:
+            if (self.pos[0] - i.pos.x)**2 + (self.pos[1] - i.pos.y)**2 < 100:
+                status = "off"
+        return status
 
     def move(self, dt):
         if self.status() == "on":
