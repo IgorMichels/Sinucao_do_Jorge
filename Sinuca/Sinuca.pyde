@@ -1,7 +1,3 @@
-from Bola import Bola
-from Mesa import Mesa
-from Bordas import Bordas
-
 def setup():
     size(800, 600)
     
@@ -58,7 +54,6 @@ def draw():
         
     for i in bolas:
         i.move(dt)
-
   
     mesa.desenha()
     for i in bolas:

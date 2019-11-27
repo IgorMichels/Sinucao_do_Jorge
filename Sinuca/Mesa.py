@@ -29,7 +29,6 @@ class Mesa:
         ellipse(120, 550, 20, 20)
         ellipse(680, 290, 20, 20)
         ellipse(680, 550, 20, 20)
-        # ellipse(128.5, 298.5, 23*2**(1/2), 23*2**(1/2)) # teste maluco aqui
         
         # estopa verde
         fill(2, 115, 62)
