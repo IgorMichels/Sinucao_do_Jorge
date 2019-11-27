@@ -1,3 +1,7 @@
+import Bola
+import Bordas
+import Mesa
+
 def setup():
     size(800, 600)
     
@@ -5,22 +9,22 @@ def setup():
 
 bolas = [
          Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
-         #Bola(PVector(600,403), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600,420), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600,437), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600,454), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-17*2**(0.5),394.5), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-17*2**(0.5),411.5), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-17*2**(0.5),428.5), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-17*2**(0.5),445.5), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-34*2**(0.5),437), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-34*2**(0.5),420), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,255,255)),
-         #Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,255,255)),
-         Bola(PVector(600,386), 8.5, 1, (255,255,255))      
-         ]    
+         Bola(PVector(600,386), 8.5, 1, (255,0,0)),      
+         Bola(PVector(600,403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,420), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,437), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,454), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),394.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),411.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),428.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),445.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),437), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),420), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0))
+         ]
 mesa = Mesa()
 
 inc = PVector(0, 0)
@@ -33,8 +37,10 @@ for i in bordas:
 
 
 oldt = millis()
+a = 100
+wb = False
 def draw():
-    global oldt
+    global oldt, a, wb
     
     t = millis()
     dt = t-oldt
@@ -43,21 +49,39 @@ def draw():
     
     background(0)
     
-
     for i in range(len(bolas)):
-        if bolas[i].v != PVector(0,0):
-            for j in bordas:
-                bolas[i].verifica_colisao_parede(j)
-            for j in bolas:
-                if bolas[i] != j:
-                    bolas[i].verifica_colisao(j)
-        
+#        if bolas[i].v != PVector(0,0):
+        for j in bordas:
+            bolas[i].verifica_colisao_parede(j)
+        for j in range(len(bolas)):
+            if i < j:
+                bolas[i].verifica_colisao(bolas[j])
+    
     for i in bolas:
         i.move(dt)
   
     mesa.desenha()
-    for i in bolas:
-        i.desenha()
+
+    if a == 100:
+        wb = True
+    
+    a = len(bolas)
+    for i in range(a):
+        if bolas[i].pos[0] < 130 or bolas[i].pos[0] > 670 or bolas[i].pos[1] < 297 or bolas[i].pos[1] > 543:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+                if wb == True:
+                    bolas[i].desenha()
+                    wb = False
+                    a = 0
+                else:
+                    a += 1
+                    print(a)
+            else:
+                bolas.pop(i)
+                a = len(bolas)
+        else:
+            bolas[i].desenha()
     
 
 def mouseDragged():

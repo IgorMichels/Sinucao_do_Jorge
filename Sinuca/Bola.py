@@ -6,7 +6,6 @@ class Bola:
         self.v = PVector(0, 0)
         self.a = PVector(0, 0)
         self.cor = cor
-        self.para = False
 
     def move(self, dt):
         if self.v.mag() < 0.004:
@@ -43,8 +42,7 @@ class Bola:
         
         dir_x = a.pos - self.pos
         dir_x.normalize()
-    
-        va_x = dir_x * (self.v.dot(dir_x))
+        va_x = dir_x * (self.v.dot(dir_x)) 
         va_y = self.v - va_x
     
         vb_x = dir_x * (a.v.dot(dir_x))
@@ -85,9 +83,3 @@ class Bola:
         vy = vy* (-1)
         self.pos.add(2*vy)
         self.v = vx + vy
-
-        
-        
-        
-        
-        
