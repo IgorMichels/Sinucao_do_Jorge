@@ -6,7 +6,6 @@ class Bola:
         self.v = PVector(0, 0)
         self.a = PVector(0, 0)
         self.cor = cor
-        self.para = False
 
     def move(self, dt):
         if self.v.mag() < 0.004:
@@ -42,9 +41,10 @@ class Bola:
     def colide(self, a):
         
         dir_x = a.pos - self.pos
+        print(dir_x, dir_x.mag())
         dir_x.normalize()
-    
-        va_x = dir_x * (self.v.dot(dir_x))
+        print(dir_x, dir_x.mag())
+        va_x = dir_x * (self.v.dot(dir_x)) 
         va_y = self.v - va_x
     
         vb_x = dir_x * (a.v.dot(dir_x))
@@ -199,8 +199,8 @@ bolas = [
          #Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,0,0)),
          #Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,0,0)),
          #Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0)),
-         Bola(PVector(600,386), 8.5, 1, (255,0,0))      
+         Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0)),
+         #Bola(PVector(600,386), 8.5, 1, (255,0,0))      
          ]    
 mesa = Mesa()
 
@@ -229,16 +229,21 @@ def draw():
         if bolas[i].v != PVector(0,0):
             for j in bordas:
                 bolas[i].verifica_colisao_parede(j)
-            for j in bolas:
-                if bolas[i] != j:
-                    bolas[i].verifica_colisao(j)
+            for j in range(len(bolas)):
+                if i < j:
+                    bolas[i].verifica_colisao(bolas[j])
         
     for i in bolas:
         i.move(dt)
   
     mesa.desenha()
-    for i in bolas:
-        i.desenha()
+    for i in range(len(bolas)):
+        if bolas[i].pos[0] < 130 or bolas[i].pos[0] > 670 or bolas[i].pos[1] < 297 or bolas[i].pos[1] > 543:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+                bolas[i].desenha()
+        else:
+            bolas[i].desenha()
     
 
 def mouseDragged():
