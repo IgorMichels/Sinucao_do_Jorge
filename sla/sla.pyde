@@ -6,18 +6,25 @@ class Bola:
         self.v = PVector(0, 0)
         self.a = PVector(0, 0)
         self.cor = cor
+        
+    def status(self):
+        if self.pos[0] < 130 or self.pos[0] > 670 or self.pos[1] < 297 or self.pos[1] > 543:
+            return "off"
+        else:
+            return "on"
 
     def move(self, dt):
-        if self.v.mag() < 0.004:
-            self.a = PVector(0, 0)
-            self.v = PVector(0, 0)
-        else:
-            v = self.v.copy()
-            self.a = PVector(v[0], v[1])
-            self.v = self.v - 0.0004 * self.a * dt        
-
-        self.pos = self.pos + self.v * dt    
-                
+        if self.status() == "on":
+            if self.v.mag() < 0.004:
+                self.a = PVector(0, 0)
+                self.v = PVector(0, 0)
+            else:
+                v = self.v.copy()
+                self.a = PVector(v[0], v[1])
+                self.v = self.v - 0.0004 * self.a * dt        
+    
+            self.pos = self.pos + self.v * dt    
+                    
     def desenha(self):
         stroke(0)
         fill(self.cor[0], self.cor[1], self.cor[2])
@@ -84,7 +91,6 @@ class Bola:
         self.pos.add(2*vy)
         self.v = vx + vy
         
-        
 class Bordas:
     bordas = [[[130, 287],[142, 296]],
               [[142, 296],[386, 296]],
@@ -103,7 +109,6 @@ class Bordas:
               [[683, 300],[674, 312]],
               [[674, 312],[674, 528]],
               [[674, 528],[683, 540]]]
-    
     
 class Mesa:
     def __init__(self):
@@ -176,30 +181,29 @@ class Mesa:
         line(118, 528, 125, 528)
         line(682, 312, 675, 312)
         line(682, 528, 675, 528)
-
+        
 def setup():
     size(800, 600)
     
     
 
-bolas = [
-         Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
-         #Bola(PVector(600,403), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600,420), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600,437), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600,454), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-17*2**(0.5),394.5), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-17*2**(0.5),411.5), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-17*2**(0.5),428.5), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-17*2**(0.5),445.5), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-34*2**(0.5),437), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-34*2**(0.5),420), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,0,0)),
-         Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0)),
-         #Bola(PVector(600,386), 8.5, 1, (255,0,0))      
-         ]    
+bolas = [Bola(PVector(180, 420), 8.5, 1, (255, 255, 255)),
+         Bola(PVector(600,386), 8.5, 1, (255,0,0)),      
+         Bola(PVector(600,403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,420), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,437), 8.5, 1, (255,0,0)),
+         Bola(PVector(600,454), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),394.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),411.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),428.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-17*2**(0.5),445.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),437), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),420), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-34*2**(0.5),403), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-51*2**(0.5),428.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-51*2**(0.5),411.5), 8.5, 1, (255,0,0)),
+         Bola(PVector(600-68*2**(0.5),420), 8.5, 1, (255,0,0))
+         ]
 mesa = Mesa()
 
 inc = PVector(0, 0)
@@ -212,10 +216,8 @@ for i in bordas:
 
 
 oldt = millis()
-a = 100
-wb = False
 def draw():
-    global oldt, a, wb
+    global oldt
     
     t = millis()
     dt = t-oldt
@@ -225,34 +227,23 @@ def draw():
     background(0)
     
     for i in range(len(bolas)):
-        if bolas[i].v != PVector(0,0):
+        if bolas[i].status() == "on":
             for j in bordas:
                 bolas[i].verifica_colisao_parede(j)
             for j in range(len(bolas)):
-                if i < j:
+                if i < j and bolas[j].status() == "on":
                     bolas[i].verifica_colisao(bolas[j])
-        
+    
     for i in bolas:
         i.move(dt)
   
     mesa.desenha()
 
-    if a == 100:
-        wb = True
-
     for i in range(len(bolas)):
-        if bolas[i].pos[0] < 130 or bolas[i].pos[0] > 670 or bolas[i].pos[1] < 297 or bolas[i].pos[1] > 543:
+        if bolas[i].status() == "off":
             if i == 0:
                 bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
-                if wb == True:
-                    bolas[i].desenha()
-                    wb = False
-                    a = 0
-                else:
-                    a += 1
-                    print(a)
-            else:
-                bolas.pop(i)
+                bolas[i].desenha()
         else:
             bolas[i].desenha()
     
