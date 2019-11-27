@@ -14,7 +14,7 @@ class Bola:
     def status(self):
         status = "on"
         for i in buracos:
-            if (self.pos[0] - i.pos.x)**2 + (self.pos[1] - i.pos.y)**2 < 100:
+            if (self.pos[0] - i.posx)**2 + (self.pos[1] - i.posy)**2 < 100:
                 status = "off"
         return status
 
