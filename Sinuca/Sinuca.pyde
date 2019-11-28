@@ -19,7 +19,7 @@ for i in bordas:
 
 oldt = millis()
 def draw():
-    global oldt, ver
+    global oldt, ver, bolas
     
     t = millis()
     dt = t-oldt
@@ -86,10 +86,63 @@ def draw():
     
     textSize(72)
     textAlign(CENTER)
-    fill(255, 255, 255)
-    text("Sinucao do Jorge", 400, 100)
+    fill(255,228,181)
+    string = 'SINUCAO DO JORGE'
+    for i in range(len(string)):
+        if i == 3:
+            if frameCount % 200 > 5:
+                fill(255,228,181, 50)
+                text(string[i],50 + 48*i,100)
+            else:
+                fill(255,228,181)
+                text(string[i],50 + 48*i,100)
+        elif i == 5:
+            if frameCount % 400 > 300:
+                fill(255,228,181, 50)
+                text(string[i],50 + 48*i,100)
+            else:
+                fill(255,228,181)
+                text(string[i],50 + 48*i,100)
+        elif i == 12:
+            if frameCount % 150 > 130:
+                fill(255,228,181, 50)
+                text(string[i],50 + 48*i,100)
+            else:
+                fill(255,228,181)
+                text(string[i],50 + 48*i,100)
+        elif i == 13:
+            if frameCount % 40 > 35:
+                fill(255,228,181, 50)
+                text(string[i],50 + 48*i,100)
+            else:
+                fill(255,228,181)
+                text(string[i],50 + 48*i,100)
+        elif i == 15:
+            translate(50 + 48*i,110)
+            rotate(2*PI - 0.3)
+            text(string[i],0,0)
+            resetMatrix()
+        else:
+            fill(255,228,181)
+            text(string[i],50 + 48*i,100)
+    textSize(16)
+    textAlign(LEFT)
+    text("by: Igor Patricio Michels e Isaque Vieira Machado Pim", 380, 590)
+    
     textSize(24)
-    text("by: Igor Patricio Michels e Isaque Vieira Machado Pim", 400, 150)
+    textAlign(CENTER)
+    text('Restart', 630, 220)
+    if mouseX <= 630 + 70 and mouseX >= 630 - 70 and mouseY <= 220 + 30 and mouseY >= 220 - 30:
+        noFill()
+        rectMode(CENTER)
+        stroke(255,228,181)
+        rect(630, 220, 140, 60)
+        rectMode(CORNER)
+
+def mouseClicked():
+    global bolas
+    if mouseX <= 630 + 70 and mouseX >= 630 - 70 and mouseY <= 220 + 30 and mouseY >= 220 - 30:
+        bolas = gera_bolas()
 
 def mouseDragged():
     global inc, ver
