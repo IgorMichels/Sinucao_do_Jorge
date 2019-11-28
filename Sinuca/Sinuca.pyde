@@ -46,16 +46,45 @@ def draw():
         taco.desenha(mouseX, mouseY, bolas[0].pos.x, bolas[0].pos.y)
         
     mesa.desenha()
-
+    a = 5*2**(1/2)
     pops = []
     for i in range(len(bolas)):
-        if bolas[i].pos[0] < 122 or bolas[i].pos[0] > 678 or bolas[i].pos[1] < 293 or bolas[i].pos[1] > 547:
+        if bolas[i].pos[0] < 102 or bolas[i].pos[0] > 698 or bolas[i].pos[1] < 273 or bolas[i].pos[1] > 567:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+            else:
+                pops.append(i)
+        elif bolas[i].pos[0] > 680 - a and bolas[i].pos[1] < 290 + a:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+            else:
+                pops.append(i)
+        elif bolas[i].pos[0] > 680 - a and bolas[i].pos[1] > 550 - a:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+            else:
+                pops.append(i)
+        elif bolas[i].pos[0] < 120 + a and bolas[i].pos[1] < 290 + a:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+            else:
+                pops.append(i)
+        elif bolas[i].pos[0] < 120 + a and bolas[i].pos[1] > 550 - a:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+            else:
+                pops.append(i)
+        elif bolas[i].pos[0] > 400 - a and bolas[i].pos[0] < 400 + a and bolas[i].pos[1] < 287 + a:
+            if i == 0:
+                bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
+            else:
+                pops.append(i)
+        elif bolas[i].pos[0] > 400 - a and bolas[i].pos[0] < 400 + a and bolas[i].pos[1] > 553 - a:
             if i == 0:
                 bolas[i] = Bola(PVector(180, 420), 8.5, 1, (255, 255, 255))
             else:
                 pops.append(i)
         bolas[i].desenha()
-        
     for i in pops:
         bolas.pop(i)
     
