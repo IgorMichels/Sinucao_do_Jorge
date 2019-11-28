@@ -84,6 +84,12 @@ def draw():
     for i in pops:
         bolas.pop(i)
     
+    textSize(72)
+    textAlign(CENTER)
+    fill(255, 255, 255)
+    text("Sinucao do Jorge", 400, 100)
+    textSize(24)
+    text("by: Igor Patricio Michels e Isaque Vieira Machado Pim", 400, 150)
 
 def mouseDragged():
     global inc, ver
