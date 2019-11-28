@@ -15,7 +15,6 @@ class Taco:
             rect(-8.5 - 6- 200, -3, 200, 6)
             resetMatrix()
         else:
-            
             dir = PVector(x,y) - PVector(px,py)
             translate(px, py)
             if y > py:

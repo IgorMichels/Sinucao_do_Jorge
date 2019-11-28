@@ -29,8 +29,7 @@ class Mesa:
         ellipse(120, 550, 20, 20)
         ellipse(680, 290, 20, 20)
         ellipse(680, 550, 20, 20)
-                
-                
+
         # estopa verde
         fill(2, 115, 62)
         triangle(130, 287, 142, 287, 142, 296)

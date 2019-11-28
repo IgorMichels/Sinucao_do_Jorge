@@ -7,7 +7,6 @@ class Bola:
         self.a = PVector(0, 0)
         self.cor = cor
 
-
     def move(self, dt):
         if self.v.x**2 + self.v.y**2 < 0.000016:
             self.a = PVector(0, 0)
@@ -15,7 +14,6 @@ class Bola:
         else:
             self.a = PVector(self.v.x, self.v.y)
             self.v = self.v - 0.0004 * self.a * dt        
-
         self.pos = self.pos + self.v * dt    
                 
     def desenha(self):
@@ -28,7 +26,6 @@ class Bola:
             self.colide(a)
     
     def verifica_colisao_parede(self, p):
-
         pa = p[0] - p[1]
         v1 = pa.dot(self.pos - p[1])
         v2 = pa.dot(self.pos - p[0])
@@ -39,7 +36,6 @@ class Bola:
                 self.colide_parede(a_)
         
     def colide(self, a):
-        
         dir_x = a.pos - self.pos
         dir_x.normalize()
         va_x = dir_x * (self.v.dot(dir_x)) 
@@ -54,7 +50,6 @@ class Bola:
                 new_bx = - va_x.mag() * ((2*self.m)/(self.m + a.m)) - vb_x.mag() * ((a.m - self.m)/(self.m + a.m))
                 self.pos += 2 * self.v
                 a.pos += 2 * a.v  
-
             else:
                 new_ax =  va_x.mag() * ((self.m - a.m)/(self.m + a.m)) + vb_x.mag() * ((2*a.m)/(self.m + a.m))
                 new_bx =  va_x.mag() * ((2*self.m)/(self.m + a.m)) + vb_x.mag() * ((a.m - self.m)/(self.m + a.m))
@@ -66,20 +61,14 @@ class Bola:
             self.pos += 2 * self.v
             a.pos += 2 * a.v  
 
-            
-    
         self.v = new_ax * dir_x + va_y
         a.v = new_bx * dir_x + vb_y
-
-        #self.pos += 2 * self.v
-        #a.pos += 2 * a.v  
         
     def colide_parede(self, n):
         n.normalize()
         vy = n*(self.v.dot(n))
         vx = self.v - vy
-    
-        
+
         vy = vy* (-1)
         self.pos.add(2*vy)
         self.v = vx + vy

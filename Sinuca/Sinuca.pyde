@@ -3,10 +3,8 @@ from Bordas import Bordas
 from Mesa import Mesa
 from Taco import Taco
 
-
 def setup():
     size(800, 600)
-
 
 bolas = gera_bolas()
 mesa = Mesa()
@@ -19,7 +17,6 @@ for i in bordas:
     i[0] = PVector(i[0][0], i[0][1])
     i[1] = PVector(i[1][0], i[1][1])
 
-
 oldt = millis()
 def draw():
     global oldt, ver
@@ -27,8 +24,7 @@ def draw():
     t = millis()
     dt = t-oldt
     oldt = t
-    
-    
+        
     background(0)
     
     for i in range(len(bolas)):
@@ -100,10 +96,6 @@ def mouseDragged():
         inc.y = bolas[0].pos.y - mouseY
         stroke(0)
         taco.desenha(mouseX, mouseY, bolas[0].pos.x, bolas[0].pos.y)
-
-
-    
-
 
 def mouseReleased():
     global inc, ver
